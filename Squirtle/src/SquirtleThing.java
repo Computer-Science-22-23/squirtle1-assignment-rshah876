@@ -37,14 +37,20 @@ public class SquirtleThing extends PokeThing {
 		// Check the 'next' Location.  If there is a PokeThing or wall there, turn.
 		boolean blocked;
 		boolean stuck;
+		boolean flower;
 			
 		Location nextLoc = getDirection().getNextLocation(getLocation()); 
 		blocked = getBoard().thingAt(nextLoc) instanceof PokeThing;
 		stuck = !(nextLoc.isValid(getBoard()));
-		if (blocked || stuck)
+		flower = getBoard().thingAt(nextLoc) instanceof FlowerThing;
+ 		if (blocked)
 		{
 			setDirection(getDirection().right());
-		}
+			Gui g = getBoard().getGui();
+			g.appendTextWindow("Squirtle sees a bulbasaur!");
+		} else if (stuck) {
+			setDirection(getDirection().right());
+		} 
 				
 		move();
 	}
